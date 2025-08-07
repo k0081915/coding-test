@@ -43,6 +43,7 @@ class Solution {
                     // totalCnt에 가장 적게 나온 수를 더해준다
                     totalCnt += list.get(0);
                 } else {
+                    // list가 한번이라도 비어있다면 만들지 못하는 단어이기 때문에 탈출
                     break;
                 }
             }
