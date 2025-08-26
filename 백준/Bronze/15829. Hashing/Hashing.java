@@ -13,8 +13,10 @@ public class Main {
         String str = br.readLine();
 
         long total = 0;
+        long pow = 1;
         for (int i = 0; i < L; i++) {
-            total += (long) ((str.charAt(i) - 'a' + 1) * Math.pow(31, i));
+            total += ((str.charAt(i) - 'a' + 1) * pow);
+            pow = (pow * 31) % M;
         }
 
         System.out.println(total % M);
