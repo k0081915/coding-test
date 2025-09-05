@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -36,6 +37,8 @@ public class Main {
             }
         }
 
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+
         int cnt = 0;
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -43,18 +46,22 @@ public class Main {
                     count = 1;
                     dfs(i, j);
                     cnt++;
-                    list.add(count);
+//                    list.add(count);
+                    queue.offer(count);
                 }
             }
         }
 
         sb.append(cnt).append("\n");
-        Collections.sort(list);
+//        Collections.sort(list);
 
-        for (Integer i : list) {
-            sb.append(i).append("\n");
+//        for (Integer i : list) {
+//            sb.append(i).append("\n");
+//        }
+
+        while (!queue.isEmpty()) {
+            sb.append(queue.poll()).append("\n");
         }
-
         System.out.println(sb);
 
         br.close();
