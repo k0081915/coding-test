@@ -18,17 +18,32 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
+//        st = new StringTokenizer(br.readLine());
+//        N = Integer.parseInt(st.nextToken());
+//        M = Integer.parseInt(st.nextToken());
         arr = new int[9];
         input = new int[9];
 
         // 1~N까지의 수를 저장해둔다
         for (int i = 0; i < 9; i++) {
             input[i] = Integer.parseInt(br.readLine());
-            // sum += input[i];
+            sum += input[i];
         }
 
-        combi(0, 0);
-        System.out.println(sb);
+        for (int i = 0; i < 8; i++) {
+            for (int j = i + 1; j < 9; j++) {
+                int cnt = input[i] + input[j];
+                if (sum - cnt == 100) {
+                    input[i] = input[j] = 0;
+                    for (int k = 0; k < 9; k++) {
+                        if (input[k] != 0) {
+                            System.out.println(input[k]);
+                        }
+                    }
+                }
+            }
+        }
+
 
         br.close();
     }
