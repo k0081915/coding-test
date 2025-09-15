@@ -8,8 +8,8 @@ public class Main {
 	static int[][] arr;
 	static int[][] days;
 
-	static int[] dx = {-1, 1, 0, 0, 0, 0}; // 상하
-	static int[] dy = {0, 0, -1, 1, 0, 0}; // 좌우
+	static int[] dx = {-1, 1, 0, 0}; // 상하
+	static int[] dy = {0, 0, -1, 1}; // 좌우
 
 	static Queue<int[]> queue = new LinkedList<>();
 
@@ -85,7 +85,7 @@ public class Main {
 			int[] coord = queue.poll();
 			int x = coord[0];
 			int y = coord[1];
-			for (int i = 0; i < 6; i++) {
+			for (int i = 0; i < 4; i++) {
 				// 상하좌우 탐색
 				int nx = x + dx[i];
 				int ny = y + dy[i];
