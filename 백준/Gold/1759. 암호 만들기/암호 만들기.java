@@ -30,12 +30,6 @@ public class Main {
 		input = br.readLine().split(" ");
 		Arrays.sort(input);
 
-
-		for (int i = 0; i < C; i++) {
-			for (int j = 0; j < C; j++) {
-
-			}
-		}
 		permu(0, 0);
 		System.out.println(sb);
 
