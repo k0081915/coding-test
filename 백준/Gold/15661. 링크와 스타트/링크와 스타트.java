@@ -39,9 +39,7 @@ public class Main {
 
 	static void combi(int idx) {
 
-		if (countPeople() > N) {
-			return;
-		}
+
 		// N 명의 팀원이 모두 뽑혔을 경우
 		if (idx == N) {
 			diff(); // 두 팀 능력치 차이 계산
@@ -52,6 +50,7 @@ public class Main {
 		combi(idx + 1); // 재귀 호출
 		visited[idx] = false; // 다음 조합을 위해 false 처리
 		combi(idx + 1);
+
 	}
 
 	static void diff() {
