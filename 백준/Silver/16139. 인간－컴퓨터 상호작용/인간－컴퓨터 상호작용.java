@@ -13,48 +13,34 @@ public class Main {
 		String str = br.readLine();
 		int q = Integer.parseInt(br.readLine());
 
-		String[] abc = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-				"k", "l", "m", "n", "o", "p", "q", "r", "s", "t",
-				"u", "v", "w", "x", "y", "z"};
-		HashMap<String, ArrayList<Integer>> map = new HashMap<>();
+		// 문자열 0번부터 i번 인덱스까지 문자 c가 총 몇번 나왔는지 누적 합
+		// 문자열 인덱스 1번부터 시작
+		int[][] sum = new int[26][str.length() + 1];
 
-		for (int i = 0; i < 26; i++) {
-			map.put(abc[i], new ArrayList<>());
-		}
-		for (int i = 0; i < str.length(); i++) {
-			map.get(String.valueOf(str.charAt(i))).add(i);
-//
-//			if (map.containsKey(String.valueOf(str.charAt(i)))) {
-//				map.get(String.valueOf(str.charAt(i))).add(i);
-//			} else {
-//				map.put(String.valueOf(str.charAt(i)), new ArrayList<>(List.of(i)));
-//			}
+		for (int i = 1; i <= str.length(); i++) {
+			// i-1 번째까지 모든 알파벳 누적 합을 복사
+			for (int j = 0; j < 26; j++) {
+				sum[j][i] = sum[j][i - 1];
+			}
+			// 현재 문자에 해당하는 누적값 1 증가
+			sum[str.charAt(i - 1) - 'a'][i]++;
 		}
 
-//		for (Map.Entry<String, ArrayList<Integer>> characterArrayListEntry : map.entrySet()) {
-//			System.out.println("characterArrayListEntry.getKey() = " + characterArrayListEntry.getKey());
-//			System.out.println("characterArrayListEntry.getValue() = " + characterArrayListEntry.getValue());
-//			System.out.println("========");
-//		}
 
 		for (int i = 0; i < q; i++) {
-			int cnt = 0;
 
 			st = new StringTokenizer(br.readLine());
-			String c = st.nextToken();
+			char c = st.nextToken().charAt(0);
 			int l = Integer.parseInt(st.nextToken());
 			int r = Integer.parseInt(st.nextToken());
 
-			ArrayList<Integer> list = map.get(c);
-			for (int j = 0; j < list.size(); j++) {
-				if (l <= list.get(j) && list.get(j) <= r) {
-					cnt++;
-				}
-			}
+			// l ~ r 사이의 c 개수 = (1~r+1 까지 c 개수) - (1~l 까지 c 개수)
+			int cnt = sum[c - 'a'][r + 1] - sum[c - 'a'][l];
 
-			System.out.println(cnt);
+			sb.append(cnt).append("\n");
 		}
 
+		System.out.println(sb);
 		br.close();
 	}
 
