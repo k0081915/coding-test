@@ -22,8 +22,9 @@ public class Main {
 		C = Integer.parseInt(st.nextToken());
 
 		board = new char[R][C];
-		visited = new int[26];
+		visited = new int[26]; // 방문한 알파벳을 쳐내기 위한 배열
 
+		// 보드 입력
 		for (int i = 0; i < R; i++) {
 			String str = br.readLine();
 			for (int j = 0; j < C; j++) {
@@ -31,6 +32,7 @@ public class Main {
 			}
 		}
 
+		// (0,0)부터 시작하는데 첫 칸을 포함
 		dfs(0, 0, 1);
 
 		System.out.println(max);
@@ -38,51 +40,29 @@ public class Main {
 		br.close();
 	}
 
-	static void bfs(int r, int c) {
-		Queue<int[]> queue = new LinkedList<>();
-		Set<Character> set = new HashSet<>();
-
-		queue.add(new int[] {r, c});
-		set.add(board[r][c]);
-
-		while (!queue.isEmpty()) {
-			int[] cur = queue.poll();
-			int cr = cur[0];
-			int cc = cur[1];
-
-			for (int i = 0; i < 4; i++) {
-				int nr = cr + dx[i];
-				int nc = cc + dy[i];
-
-				if (nr >= 0 && nr < R && nc >= 0 && nc < C) {
-					if (!set.contains(board[nr][nc])) {
-						System.out.println(board[nr][nc]);
-						set.add(board[nr][nc]);
-						queue.add(new int[]{nr, nc});
-					}
-
-				}
-			}
-		}
-	}
-
 	static void dfs(int r, int c, int sum) {
-		visited[board[r][c] - 'A'] = 1;
+		visited[board[r][c] - 'A'] = 1; // 방문 처리
 
+		// sum > max 이면 최댓값 갱신
 		if (sum > max) {
 			max = sum;
 		}
 
+		// 상하좌우 탐색
 		for (int i = 0; i < 4; i++) {
 			int nr = r + dx[i];
 			int nc = c + dy[i];
 
+			// 배열 범위 안이면
 			if (nr >= 0 && nr < R && nc >= 0 && nc < C) {
+				// 방문하지 않은 곳이면
 				if (visited[board[nr][nc] - 'A'] == 0) {
+					// dfs 수행
 					dfs(nr, nc, sum + 1);
 				}
 			}
 		}
+		// 백트래킹: 다시 방문 처리를 해제함
 		visited[board[r][c] - 'A'] = 0;
 	}
 }
