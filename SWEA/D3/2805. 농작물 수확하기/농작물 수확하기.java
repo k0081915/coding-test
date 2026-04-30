@@ -1,44 +1,32 @@
-
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class Solution {
-
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
         int t = Integer.parseInt(br.readLine());
         for (int tc = 1; tc <= t; tc++) {
             int n = Integer.parseInt(br.readLine());
-            int[][] arr = new int[n + 1][n + 1];
+            int mid = n / 2;
+            int answer = 0;
 
-            for (int i = 1; i <= n; i++) {
+            for (int row = 0; row < n; row++) {
                 String line = br.readLine();
-                for (int j = 0; j < n; j++) {
-                    arr[i][j + 1] = Integer.parseInt(String.valueOf(line.charAt(j)));
+                int distance = Math.abs(row - mid);
+                int start = distance;
+                int end = n - 1 - distance;
+
+                for (int col = start; col <= end; col++) {
+                    answer += line.charAt(col) - '0';
                 }
             }
 
-            int sum = 0;
-            int start = 0;
-            int mid = n / 2 + 1;
-
-            for (int i = 0; i < n; i++) {
-                for (int j = mid - start; j <= mid + start; j++) {
-                    sum += arr[j][i + 1];
-                }
-                if (i >= mid - 1) {
-                    start--;
-                } else {
-                    start++;
-                }
-            }
-
-            sb.append("#").append(tc).append(" ").append(sum).append("\n");
+            sb.append('#').append(tc).append(' ').append(answer).append('\n');
         }
 
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }
